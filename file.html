@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chennuru Lakshmi Priya Reddy | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --text: #e5e7eb;
+      --accent: #8b5cf6;
+      --accent-soft: rgba(139, 92, 246, 0.15);
+      --card: #111827;
+    }
+    body.light {
+      --bg: #f9fafb;
+      --bg-alt: #ffffff;
+      --text: #111827;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.15);
+      --card: #f3f4f6;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, var(--bg) 45%);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 6vw;
+      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.95), rgba(3, 7, 18, 0.6));
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav a {
+      font-size: 0.95rem;
+      position: relative;
+    }
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.2s ease-out;
+    }
+    .nav a:hover::after {
+      width: 100%;
+    }
+    .theme-toggle {
+      background: var(--accent-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-radius: 999px;
+      color: var(--text);
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .hero {
+      min-height: 80vh;
+      padding: 4rem 6vw 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      max-width: 480px;
+    }
+    .hero-subtitle {
+      color: #9ca3af;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-top: 0.5rem;
+    }
+    .hero-role {
+      margin-top: 0.3rem;
+      font-weight: 500;
+      color: #c4b5fd;
+    }
+    .hero-tagline {
+      margin-top: 0.8rem;
+      color: #d1d5db;
+    }
+    .hero-cta {
+      margin-top: 1.5rem;
+    }
+    .hero-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-avatar img {
+      width: 200px;
+      height: 200px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 4px solid var(--accent-soft);
+      position: relative;
+      z-index: 1;
+    }
+    .avatar-circle {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top, var(--accent), transparent 60%);
+      opacity: 0.4;
+    }
+    .hero-floating-shape {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 999px;
+      background: conic-gradient(from 180deg, rgba(139, 92, 246, 0.2), transparent);
+      filter: blur(10px);
+      animation: float 12s ease-in-out infinite;
+    }
+    .shape-1 { top: 10%; right: 5%; }
+    .shape-2 { bottom: -10%; left: 0%; animation-delay: -4s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(10px); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section {
+      padding: 4rem 6vw 3rem;
+      background: linear-gradient(to bottom, var(--bg-alt), transparent);
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+    .about p {
+      max-width: 600px;
+    }
+    .quick-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .fact-card {
+      background: var(--card);
+      padding: 1rem;
+      border-radius: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    }
+    .fact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.6);
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--card);
+      padding: 1.2rem;
+      border-radius: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      padding: 1.2rem;
+      border-radius: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+    .project-tech {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #a5b4fc;
+    }
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .achievement-card {
+      background: var(--card);
+      padding: 1rem;
+      border-radius: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.9rem;
+    }
+    .btn, .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), #ec4899);
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+    .btn:active, .hero-cta:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 5px 12px rgba(236, 72, 153, 0.3);
+    }
+    .gallery-grid {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 0.8rem;
+      cursor: pointer;
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.8);
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease-out;
+      z-index: 100;
+    }
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox-img {
+      max-width: 80vw;
+      max-height: 80vh;
+      border-radius: 1rem;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .contact-form {
+      margin-top: 1.5rem;
+      max-width: 480px;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    input, textarea {
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text);
+    }
+    body.light input,
+    body.light textarea {
+      background: white;
+    }
+    .footer {
+      padding: 1.5rem 6vw 2rem;
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-content {
+        margin: 0 auto;
+      }
+      .hero-avatar {
+        order: -1;
+      }
+      .nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">CLP Reddy</div>
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="themeToggle" class="theme-toggle">🌙</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <p class="hero-subtitle reveal">Hi, I’m</p>
+      <h1 class="hero-title reveal">Chennuru Lakshmi Priya Reddy</h1>
+      <p class="hero-role reveal">Aspiring Software Developer</p>
+      <p class="hero-tagline reveal">
+        I build clean, responsive web interfaces and Java‑based solutions while exploring data and AI to solve real‑world problems.
+      </p>
+      <button class="hero-cta reveal" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        Let’s Connect
+      </button>
+    </div>
+    <div class="hero-avatar reveal">
+      <div class="avatar-circle"></div>
+      <!-- Replace src with your real photo path if you have one locally -->
+      <img src="https://via.placeholder.com/200" alt="Profile photo" />
+    </div>
+    <div class="hero-floating-shape shape-1"></div>
+    <div class="hero-floating-shape shape-2"></div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section about">
+    <h2>About Me</h2>
+    <p>
+      I am a Computer Science undergraduate from Kurnool, with a strong foundation in Java and a growing focus on frontend
+      development and data‑driven applications. I enjoy turning ideas into reliable, user‑friendly experiences and continuously improving my problem‑solving skills.
+    </p>
+    <p style="margin-top:0.8rem;">
+      My recent work spans web applications, academic tools, and exploratory projects in AI and data, and I’m actively seeking opportunities
+      to learn from experienced engineers while contributing to real‑world products.
+    </p>
+
+    <div class="quick-facts">
+      <div class="fact-card">
+        <h3>Education</h3>
+        <p>
+          B.Tech – CSE (2022–Present) <br />
+          Ravindra College of Engineering for Women, CGPA 8.8
+        </p>
+      </div>
+      <div class="fact-card">
+        <h3>Tech Focus</h3>
+        <p>
+          Java backend, web development, and data/AI‑oriented solutions.
+        </p>
+      </div>
+      <div class="fact-card">
+        <h3>Interests</h3>
+        <p>
+          Reading, music, sketching, and competitive programming.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section skills">
+    <h2>Skills</h2>
+    <p class="section-subtitle">
+      A mix of core programming, web technologies, and tools I use to build and ship projects.
+    </p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Programming Languages</h3>
+        <p>Java, Python</p>
+      </div>
+      <div class="skill-card">
+        <h3>Web Technologies</h3>
+        <p>HTML, CSS, JavaScript (for interactive UIs)</p>
+      </div>
+      <div class="skill-card">
+        <h3>Data & Databases</h3>
+        <p>SQL, academic exposure to data/AI tools and workflows</p>
+      </div>
+      <div class="skill-card">
+        <h3>Tools & Platforms</h3>
+        <p>VS Code, Streamlit, Git, online judges for problem solving</p>
+      </div>
+      <div class="skill-card">
+        <h3>Soft Skills</h3>
+        <p>Collaborative teamwork, communication, adaptability, time management</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <p class="section-subtitle">
+      Practical projects where I applied Java, web technologies, and problem‑solving to build useful applications.
+    </p>
+
+    <div class="projects-grid">
+      <!-- Project 1: CryptoApp -->
+      <div class="project-card">
+        <h3>CryptoApp – Cryptocurrency Analysis</h3>
+        <p>
+          A crypto application that analyzes hourly data for multiple coins to support visualization and experimentation with
+          price prediction models and time‑series analysis.
+        </p>
+        <p class="project-tech">
+          Tech: Python, data processing, CSV datasets (BNB, BTC, ETH, USDT, XRP), basic ML/time‑series workflows
+        </p>
+        <p style="margin-top:0.5rem; font-size:0.9rem;">
+          Focus: Data handling, feature preparation, and experimenting with prediction logic for real‑world financial data.
+        </p>
+      </div>
+
+      <!-- Project 2: Student Academic Performance Tracker -->
+      <div class="project-card">
+        <h3>Student Academic Performance Tracker</h3>
+        <p>
+          A web‑based application that calculates SGPA and CGPA based on subject‑wise marks and credits entered per semester,
+          making it easier for students to track their academic performance.
+        </p>
+        <p class="project-tech">
+          Tech: HTML, CSS, JavaScript
+        </p>
+        <p style="margin-top:0.5rem; font-size:0.9rem;">
+          Focus: Input validation, clear UI, and simple logic to compute and display aggregate results for individual students.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="section">
+    <h2>Certifications & Achievements</h2>
+    <p class="section-subtitle">
+      A snapshot of structured learning and problem‑solving practice that supports my growth as a software developer.
+    </p>
+    <div class="achievements-grid">
+      <div class="achievement-card">
+        <h3>Smart Interviews – Data Structures and Algorithms</h3>
+        <p>Completed focused modules in core DSA, strengthening my foundation for efficient solutions in Java and other languages.</p>
+      </div>
+      <div class="achievement-card">
+        <h3>CodeChef – Problem Solving (500 level)</h3>
+        <p>Earned a certificate for solving all problems at the 500 difficulty level, building consistency in competitive problem solving.</p>
+      </div>
+      <div class="achievement-card">
+        <h3>CodeTantra – Java Programming</h3>
+        <p>Completed a structured, hands‑on Java training program, reinforcing object‑oriented concepts and practical coding skills.</p>
+      </div>
+      <div class="achievement-card">
+        <h3>Google AI Essentials</h3>
+        <p>Gained practical exposure to using AI tools responsibly to enhance productivity and support data‑driven decision making.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="section gallery">
+    <h2>Gallery</h2>
+    <p class="section-subtitle">
+      A small glimpse into the things that keep me curious and creative beyond formal coursework.
+    </p>
+    <div class="gallery-grid">
+      <!-- You can replace these images with your own later -->
+      <img src="https://picsum.photos/seed/reading/400/300" alt="Reading" class="gallery-item" />
+      <img src="https://picsum.photos/seed/music/400/300" alt="Music" class="gallery-item" />
+      <img src="https://picsum.photos/seed/sketch/400/300" alt="Sketching" class="gallery-item" />
+      <img src="https://picsum.photos/seed/competitive/400/300" alt="Competitive programming" class="gallery-item" />
+      <img src="https://picsum.photos/seed/code/400/300" alt="Coding" class="gallery-item" />
+      <img src="https://picsum.photos/seed/learn/400/300" alt="Learning" class="gallery-item" />
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span id="lightboxClose" class="lightbox-close">&times;</span>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="Preview" />
+  </div>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact">
+    <h2>Contact</h2>
+    <p class="section-subtitle">
+      Open to software development internships and opportunities to learn, collaborate, and contribute to impactful products.
+    </p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" required />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 Chennuru Lakshmi Priya Reddy. Built for software development internship opportunities.</p>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll(".reveal");
+    const revealOnScroll = () => {
+      const trigger = window.innerHeight * 0.85;
+      revealEls.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < trigger) {
+          el.classList.add("visible");
+        }
+      });
+    };
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    const setTheme = (mode) => {
+      if (mode === "light") {
+        document.body.classList.add("light");
+        themeToggle.textContent = "🌙";
+      } else {
+        document.body.classList.remove("light");
+        themeToggle.textContent = "☀️";
+      }
+      localStorage.setItem("theme", mode);
+    };
+    const storedTheme = localStorage.getItem("theme") || "dark";
+    setTheme(storedTheme);
+    themeToggle.addEventListener("click", () => {
+      const current = document.body.classList.contains("light") ? "light" : "dark";
+      setTheme(current === "light" ? "dark" : "light");
+    });
+
+    // Gallery lightbox
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    galleryItems.forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add("open");
+      });
+    });
+    lightboxClose.addEventListener("click", () => {
+      lightbox.classList.remove("open");
+    });
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove("open");
+      }
+    });
+
+    // Contact form (demo)
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert("Thanks for reaching out! This demo form does not send emails yet.");
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
